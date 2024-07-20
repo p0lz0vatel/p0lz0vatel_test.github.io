@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Button</title>
+
+  <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+</head>
+<body>
+	<button id="getURL">Get Url</button>
+  <button id="checkPayment">Check Payment</button>
+	
+	<script>
+    const chat_id = '123'
+    console.log(chat_id)
+
+		const get_button = document.getElementById('getURL');
+		get_button.addEventListener('click', function() {
+      let refactor_count = 30;
+      let label = `${chat_id}_${new Date().toISOString().replace(/:/g, '-').replace('T', '-').replace('Z', '')}`.replace(".", "");
+      let payment_url = "https://yoomoney.ru/quickpay/confirm.xml?receiver=4100118742841217&quickpay-form=shop&targets=WayPn&paymentType=SB&sum=" + refactor_count + "&label=" + label;
+
+      console.log(payment_url);
+      console.log(label);
+		});
+
+    const check_button = document.getElementById('checkPayment');
+		check_button.addEventListener('click', function() {
+      const label = chat_id;
+      const shopId = 'WayPn'; // D2A80E56D2EB7A0AFAA4F9B9F65C096798F05B7E64A19E46A835ABDD91149B45
+      const secretKey = "4100118742841217.6916332E4620C17C95762BC72D444870FD6C242B299FA809334BD1058D0F280C7F2F5D3E0347BC13487BCD8ABB9F7E2619DE849B4E465A29FD7F8799FFF6ACA5B779556F4F3A59A0089E66883E6EC41300D81BDFFA06CA8CCA7A86771953BFA0A4475E00D76E2ADDEC994374D09ECD70CF784086CA99245694C9B8543AC8A258";
+
+      const headers_ = {
+        'Authorization': `Bearer ${secretKey}`,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      };
+
+      const params_ = {
+      };
+
+      // axios.post('https://yoomoney.ru/api/operation-history', { headers, params })
+      //   .then(response => {
+      //     const operationDetails = response.data.operation_details;
+      //     console.log(operationDetails);
+      //   })
+      //   .catch(error => {
+      //     console.error(error);
+      //   });
+
+      
+
+      fetch("http://yoomoney.ru/api/account-info", {
+        method: "POST",
+        headers: headers_
+      }).catch(error => console.error('Error:', error));
+    })
+	</script>
+</body>
+</html>
